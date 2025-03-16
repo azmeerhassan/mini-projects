@@ -36,8 +36,63 @@
     </div>
     <script>
         const apiKey = "61455cc45e1d33bd7b02fbde6a39e88a";
-        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=karachi";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+        const searchBox = document.querySelector(".search input");
+        const searchBtn = document.querySelector(".search button");
+        const weatherIcon = document.querySelector(".weather-icon");
+
+        async function checkWeather(city) {
+        const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+        var data = await response.json();
+
+        console.log(data);
+        document.querySelector(".temp").innerHTML = Math.round(data.main.temp) +"°C";
+        document.querySelector(".city").innerHTML = data.name;
+        document.querySelector(".humidity").innerHTML = data.main.humidity+"%";
+        document.querySelector(".wind").innerHTML = data.wind.speed+"km/h";
+
+        if(data.weather[0].main =="clear")
+        {
+            weatherIcon.src="C:\Users\azmeer\mini-projects\Weather app\images/clear.png";
+        }
+        else if(data.weather[0].main =="clouds")
+        {
+            weatherIcon.src="C:\Users\azmeer\mini-projects\Weather app\images/clouds.png";
+        }
+        else if(data.weather[0].main =="drizzle")
+        {
+            weatherIcon.src="C:\Users\azmeer\mini-projects\Weather app\images/drizzle.png";
+        }
+        else if(data.weather[0].main =="humidity")
+        {
+            weatherIcon.src="C:\Users\azmeer\mini-projects\Weather app\images/humidity.png";
+        }
+        else if(data.weather[0].main =="mist")
+        {
+            weatherIcon.src="C:\Users\azmeer\mini-projects\Weather app\images/mist.png";
+        }
+        else if(data.weather[0].main =="rain")
+        {
+            weatherIcon.src="C:\Users\azmeer\mini-projects\Weather app\images/rain.png";
+        }
+        else if(data.weather[0].main =="snow")
+        {
+            weatherIcon.src="C:\Users\azmeer\mini-projects\Weather app\images/snow.png";
+        }
+        else if(data.weather[0].main =="wind")
+        {
+            weatherIcon.src="C:\Users\azmeer\mini-projects\Weather app\images/wind.png";
+        }
+
+        }
+        searchBtn.addEventListener("click", ()=>{
+            checkWeather(searchBox.value);
+        })
         
+        
+        
+
     </script>
 </body>
 </html>
